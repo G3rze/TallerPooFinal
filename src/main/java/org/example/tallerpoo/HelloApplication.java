@@ -24,9 +24,6 @@ public class HelloApplication extends Application {
 
     public static void main(String[] args) {
         db = DB.getDBInstance();
-
-        db.insertCategory("Pintura");
-
         launch();
     }
 }

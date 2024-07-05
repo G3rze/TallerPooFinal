@@ -1,6 +1,8 @@
 package org.example.tallerpoo.db;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DB {
 
@@ -80,9 +82,11 @@ public class DB {
         try {
             statement = con.createStatement();
 
-            ResultSet resultSet = statement.executeQuery("select id from employee where name = " + name + " and lastname = " + lastName);
+            ResultSet resultSet = statement.executeQuery("select id as empleado from employee where name = '" + name + "' and lastName = '" + lastName + "';");
 
-            id = (int) resultSet.getObject(0);
+            if (resultSet.next()) {
+                id = resultSet.getInt("empleado");
+            }
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -98,9 +102,11 @@ public class DB {
         try {
             statement = con.createStatement();
 
-            ResultSet resultSet = statement.executeQuery("select id from category where name = " + name);
+            ResultSet resultSet = statement.executeQuery("select id from category where name = '" + name + "'");
 
-            id = (int) resultSet.getObject(0);
+            if(resultSet.next()){
+                id = resultSet.getInt("id");
+            }
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -108,5 +114,75 @@ public class DB {
         return id;
     }
 
+    public List<String> getAllCategories() {
+        List<String> categories = new ArrayList<>();
+
+        ResultSet rs = null;
+
+        try {
+            rs = con.createStatement().executeQuery("select name from category");
+
+            while (rs.next()) {
+                categories.add(rs.getString("name"));
+
+            }
+        }catch(SQLException e){
+                throw new RuntimeException(e);
+            }
+
+        return categories;
+    }
+
+    public List<String> getChoresByEmployee(String employee, String firstDate, String lastDate){
+
+        List<String> list = new ArrayList<>();
+
+        ResultSet rs = null;
+
+        try {
+            rs = con.createStatement().executeQuery("select e.name as name, e.lastName as lastName, r.name as chore, r.description, c.name as category_name, r.work_date as 'date' " +
+                    "from register as r " +
+                    "inner join employee as e on r.id_employee = e.id " +
+                    "inner join category as c on c.id = r.id_category " +
+                    "where work_date between '" + firstDate + "' and '" + lastDate + "'" +
+                    "order by e.lastName;");
+
+            while (rs.next()) {
+                list.add("empleado: " + rs.getString("name") + " " + rs.getString("lastName") + ", tarea: " + rs.getString("chore") + ", descripción: " + rs.getString("description") + ", categoria: " + rs.getString("category_name") + ", fecha: " + rs.getString("date"));
+
+            }
+        }catch(SQLException e){
+            throw new RuntimeException(e);
+        }
+
+        return list;
+
+    }
+
+    public List<String> getChoresByCategory(String category){
+
+        List<String> list = new ArrayList<>();
+
+        ResultSet rs = null;
+
+        try {
+            rs = con.createStatement().executeQuery("select e.name, count(r.id) as 'count'" +
+                    "from register as r " +
+                    "inner join employee as e on r.id_employee = e.id " +
+                    "inner join category as c on c.id = r.id_category " +
+                    "where c.id = '" + getCategoryByName(category) + "'" +
+                    "group by r.id_employee;");
+
+            while (rs.next()) {
+                list.add("Empleado:" + rs.getString("name") + ", Cantidad" + rs.getString("count"));
+
+            }
+        }catch(SQLException e){
+            throw new RuntimeException(e);
+        }
+
+        return list;
+
+    }
 
 }
