@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SplitMenuButton?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.tallerpoo.HelloController">
+  <tabs>
+    <Tab text="Nuevo Registro">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <TextField fx:id="employeeName" alignment="TOP_LEFT" layoutX="14.0" layoutY="37.0" prefHeight="25.0" prefWidth="280.0" promptText="Nombre del emplado" />
+                  <TextField fx:id="EmployeeLastName" layoutX="306.0" layoutY="37.0" prefHeight="25.0" prefWidth="280.0" promptText="Apellido del empleado" />
+                  <TextField fx:id="name" layoutX="14.0" layoutY="78.0" prefHeight="25.0" prefWidth="150.0" promptText="Tarea" />
+                  <TextField fx:id="date" layoutX="436.0" layoutY="78.0" prefHeight="25.0" prefWidth="150.0" promptText="Fecha" />
+                  <SplitMenuButton fx:id="category" layoutX="225.0" layoutY="78.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" text="Categoria">
+                    <items>
+                      <MenuItem mnemonicParsing="false" text="Action 1" />
+                      <MenuItem mnemonicParsing="false" text="Action 2" />
+                    </items>
+                  </SplitMenuButton>
+                  <TextArea fx:id="description" layoutX="15.0" layoutY="119.0" prefHeight="200.0" prefWidth="571.0" promptText="Descripción" />
+                  <Button layoutX="527.0" layoutY="332.0" mnemonicParsing="false" onAction="#submit" text="Ingresar" />
+               </children></AnchorPane>
+      </content>
+    </Tab>
+    <Tab text="Ver tareas">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+      </content>
+    </Tab>
+    <Tab text="Insertar Empleados">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <TextField fx:id="newEmployeeName" layoutX="14.0" layoutY="14.0" prefHeight="25.0" prefWidth="289.0" promptText="Nombre" />
+                  <TextField fx:id="newEmployeeLastName" layoutX="14.0" layoutY="47.0" prefHeight="25.0" prefWidth="289.0" promptText="Apellido" />
+                  <Button layoutX="14.0" layoutY="91.0" mnemonicParsing="false" onAction="#submitNewEmployee" text="Ingresar" />
+               </children></AnchorPane>
+      </content>
+    </Tab>
+    <Tab text="Insertar Categorias">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <TextField fx:id="newCategory" layoutX="14.0" layoutY="14.0" prefHeight="25.0" prefWidth="289.0" promptText="Nueva Categoria" />
+                  <Button layoutX="14.0" layoutY="47.0" mnemonicParsing="false" onAction="#submitNewCategory" text="Ingresar" />
+               </children></AnchorPane>
+      </content>
+    </Tab>
+  </tabs>
+</TabPane>
